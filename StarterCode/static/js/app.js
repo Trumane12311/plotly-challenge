@@ -10,7 +10,7 @@ let barChart = d3.select("bar");
 console.log(selectID);
 
 // Select guage chart div. 
-// let gaugeChart = d3.select("#guage");
+let gaugeChart = d3.select("#guage");
 
 // Select bubble chart div.
 let bubbleChart = d3.select("#bubble");
@@ -37,31 +37,26 @@ function init() {
     // read in samples from JSON file
     d3.json("samples.json").then((result => {
 
-        result.names.forEach((name => {
-            let option = selectID.append("option");
-            option.text(name);
-        })); // close forEach
-
-        // get the first ID from the list for initial charts as a default
-        let updateID = selectID.property("value");
-
-        // plot charts with initial ID
-        plotCharts(updateID);
-
-    }));
-
-}
+            let selectID = d3.select("#selDataset");
+        
+            d3.json("samples.json").then((result)=> {
+                console.log(result)
+        
+                results.names.forEach(function(name) {
+                    selectID.append("option").text(name).property("value");
+                });
+        });
 
 function resetData() {
     demographicsPanel.html("");
     barChart.html("");
     bubbleChart.html("");
-    // gaugeChart.html("");
+    gaugeChart.html("");
 }
 
 init();
 
-function plotCharts(id) {
+/*function plotCharts(id) {
 
     // read in the JSON data
     d3.json("samples.json").then((derek => {
@@ -82,6 +77,7 @@ function plotCharts(id) {
         });
     }))
 }
+*/
 
 //let individualSubject = json.metadata.filter(participant => participant.id == id)[0];
 //console.log(individualSubject);
