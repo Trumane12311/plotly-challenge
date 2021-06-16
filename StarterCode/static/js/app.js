@@ -21,23 +21,17 @@ let bubbleChart = d3.select("#bubble");
 function init() {
 
     // Select test subject input field
-    var selectID = d3.select("#selDataset");
+    let selectID = d3.select("#selDataset");
 
     // read in samples from JSON file
     d3.json("samples.json").then((result)=> {
         console.log(result);
-
-        // call back result to add as options for ul
+        // call back result
         result.names.forEach(function(name) {
-            selectID.append("option").text(name).property("value");
-            var input = document.getElementById("value");
-            var inputVal = "";
-                if (input) {
-                    inputVal = input.value;
-            }
-        });
+            selectID.append('option').text(name).property('value');
+        })
     })
-};
+}
 
 /* Create a demographics panel that updates 
 based on the selected participant. It should 
