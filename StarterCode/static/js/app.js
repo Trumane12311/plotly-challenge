@@ -32,7 +32,7 @@ function plots(subjectData) {
         };
     
         Plotly.newPlot("bar", barchart, barLayout);
-        });
+        })
         
 // Create a bubble chart that updates 
 // based on the selected participant.It should 
@@ -56,7 +56,7 @@ function plots(subjectData) {
           ];
         
         Plotly.newPlot("bubble", bubbleData, bubbleLayout);
-}
+};
         
 // Create a function for the demographics panel that updates based on the selected participant.
 
