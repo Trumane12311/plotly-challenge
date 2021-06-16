@@ -1,10 +1,6 @@
 // Select the user input field.
 let selectID = d3.select("#selDataset");
-selectID.on("change", function() {
-    var node = select.node();
-    console.log(node.value);
-});
-
+console.log(selectID);
 // Select the demographics for participant listing div.
 let demographicsPanel = d3.select("#sample-metadata");
 console.log(demographicsPanel);
@@ -50,7 +46,7 @@ function init() {
         let updateID = selectID.property("value");
 
         // plot charts with initial ID
-        plotCharts(updateId);
+        plotCharts(updateID);
 
     }));
 
@@ -68,9 +64,9 @@ init();
 function plotCharts(id) {
 
     // read in the JSON data
-    d3.json("samples.json").then((result => {
+    d3.json("samples.json").then((derek => {
 
-        let individualSubject = result.metadata.filter(participant => participant.id == id)[0];
+        der.metadata.filter(participant => participant.id == id)[0];
 
         // get the wash frequency for gauge chart later
         // var washfreq = individualMetadata.wfreq;
