@@ -100,9 +100,9 @@ function jsonData(id) {
     });
 }
 
-function updatePlots(id) {
-    plots(id);
-    jsonData(id);
+function updatePlots(newData) {
+    plots(newData);
+    jsonData(newData);
 };
 
 // select the user input field
@@ -123,21 +123,18 @@ let gaugeChart = d3.select("gauge");
 function init() {
 
     d3.json("samples.json").then((data => {
-
-        // ----------------------------------
-        // POPULATE DROPDOWN MENU WITH IDs 
-        // ----------------------------------
-
-        //  use a forEach to loop over each name in the array data.names to populate dropdowns with IDs
-        data.names.forEach((name => {
+        let subjectNames = data.names;
+        subjectNames.forEach((name => {
              selectID.classed("dropdown-item")
-             let option = selectID.append('li');
-            option.text(name);
+                        .append('li')
+                        .text(name)
+                        .property("value", name)
         })); // close forEach
 
         // get the first ID from the list for initial charts as a default
-        var initId = selectID.property("value")
-
+        const fillerData = sampleNames[0];
+        buildCharts(fillerData);
+        buildMetadata(fillerData);
         // plot charts with initial ID
         plots(initId);
 
