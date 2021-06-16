@@ -68,35 +68,24 @@ init();
 function plotCharts(id) {
 
     // read in the JSON data
-    d3.json("samples.json").then((data => {
+    d3.json("samples.json").then((result => {
 
-        // ----------------------------------
-        // POPULATE DEMOGRAPHICS TABLE
-        // ----------------------------------
-
-        // filter the metadata for the ID chosen
-        var individualSubject = data.metadata.filter(participant => participant.id == id)[0];
+        let individualSubject = result.metadata.filter(participant => participant.id == id)[0];
 
         // get the wash frequency for gauge chart later
         // var washfreq = individualMetadata.wfreq;
 
-        // Iterate through each key and value in the metadata
+        // Full Value and Key
         Object.entries(individualSubject).forEach(([key, value]) => {
 
-            var newList = demographicsTable.append("ul");
-            newList.attr("class", "list-group list-group-flush");
-
-            // append a li item to the unordered list tag
-            var subjectList = newList.append("li");
-
-            // change the class attributes of the list item for styling
-            subjectList.attr("class", "list-group-item p-1 demo-text bg-transparent");
-
+            let newList = demographicsPanel.append("ul");
+            let subjectList = newList.append("li");
             // add the key value pair from the metadata to the demographics list
             subjectList.text(`${key}: ${value}`);
 
         });
     }))
+}
 
 //let individualSubject = json.metadata.filter(participant => participant.id == id)[0];
 //console.log(individualSubject);
@@ -114,6 +103,6 @@ generate on the changing value of subject ul listing selection.*/
 
 
 
-/* Create a bubble chart that updates 
-based on the selected participant.It should 
-generate on the changing value of subject ul listing selection.*/
+// Create a bubble chart that updates 
+// based on the selected participant.It should 
+// generate on the changing value of subject ul listing selection.
