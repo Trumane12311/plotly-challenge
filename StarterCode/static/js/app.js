@@ -20,15 +20,8 @@ let bubbleChart = d3.select("#bubble");
 //    console.log(result);
 // });
 
-/*  Import participant list into ul listing 
-for the dropdown menu.*/
-
-
-
-/* Create a demographics panel that updates 
-based on the selected participant. It should 
-generate on the changing value of subject ul listing selection.*/
-
+//  Import participant list into ul listing 
+// for the dropdown menu.
 function init() {
 
     // reset any previous data
@@ -40,12 +33,19 @@ function init() {
             let selectID = d3.select("#selDataset");
         
             d3.json("samples.json").then((result)=> {
-                console.log(result)
+                console.log(result);
         
                 results.names.forEach(function(name) {
                     selectID.append("option").text(name).property("value");
                 });
-        });
+            })
+        }));
+
+/* Create a demographics panel that updates 
+based on the selected participant. It should 
+generate on the changing value of subject ul listing selection.*/
+
+
 
 function resetData() {
     demographicsPanel.html("");
@@ -96,5 +96,4 @@ generate on the changing value of subject ul listing selection.*/
 
 
 // Create a bubble chart that updates 
-// based on the selected participant.It should 
-// generate on the changing value of subject ul listing selection.
+// based on the selected participant.It should generate on the changing value of subject ul listing selection.
