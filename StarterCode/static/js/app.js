@@ -2,16 +2,17 @@ function plots(id) {
     d3.json("samples.json").then((data)=> {
         console.log(data);
  
-        let samples = data.samples.filter(s => s.id === id)[0];
+        var samples = data.samples.filter(s => s.id.toString() === id)[0];
         console.log(`Samples: ${samples}`);
-
-        let topTen = samples.sample_values.slice(0, 10).reverse();
-        console.log(`Top Ten Samples: ${topTen}`);
+        
+        data.samples.forEach((sample => {
+            let topTen = samples.sample_values.slice(0, 10).reverse();
+            console.log(`Top Ten Samples: ${topTen}`);
 
         let topOTU = samples.otu_ids.slice(0, 10).reverse();
         console.log(`Top Ten OTUs: ${topOTU}`);
 
-        let OTUids = topOTU.map(d => "OTU " + d)
+            let OTUids = topOTU.map(d => "OTU " + d)
         console.log(`OTU IDS: ${OTUids}`);
 
         let OTUlabels = samples.otu_labels.slice(0, 10);
@@ -20,16 +21,16 @@ function plots(id) {
         let bX = samples.otu_ids;
         console.log(bX);
 
-        let bY = samples.sample_values;
+            let bY = samples.sample_values;
         console.log(bY);
 
-        let bSize = samples.sample_values;
+            let bSize = samples.sample_values;
         console.log(bSize);
 
         let bColor = samples.otu_ids;
         console.log(bColor);
 
-        let bText = samples.otu_labels;
+            let bText = samples.otu_labels;
         console.log(bText);
 
         
@@ -76,12 +77,13 @@ function plots(id) {
 
         Plotly.newPlot("bubble", dataBubble, layoutBubble); 
 
-    });    
-}
+    }));    
+})}
 
 /* Create a function for the demographics panel that updates 
 based on the selected participant. It should 
 generate on the changing value of subject ul listing selection.*/
+
 function jsonData(id) {
     d3.json("samples.json").then((data) => {
         let metadata = data.metadata;
@@ -104,19 +106,19 @@ function updatePlots(id) {
 };
 
 // select the user input field
-var selectID = d3.select("#selDataset");
+let selectID = d3.select("#selDataset");
 
 // select the demographic info div's ul list group
-var demographicsTable = d3.select("#sample-metadata");
+let demographicsTable = d3.select("#sample-metadata");
 
 // select the bar chart div
-var barChart = d3.select("#bar");
+let barChart = d3.select("#bar");
 
 // select the bubble chart div
-var bubbleChart = d3.select("bubble");
+let bubbleChart = d3.select("bubble");
 
 // select the gauge chart div
-var gaugeChart = d3.select("gauge");
+let gaugeChart = d3.select("gauge");
 
 function init() {
 
@@ -128,7 +130,8 @@ function init() {
 
         //  use a forEach to loop over each name in the array data.names to populate dropdowns with IDs
         data.names.forEach((name => {
-            var option = selectID.append("option");
+             selectID.classed("dropdown-item")
+             let option = selectID.append('li');
             option.text(name);
         })); // close forEach
 
