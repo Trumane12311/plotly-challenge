@@ -1,13 +1,9 @@
-// Select the user input field.
-let selectID = d3.select("#selDataset");
-console.log(selectID);
 // Select the demographics for participant listing div.
 let demographicsPanel = d3.select("#sample-metadata");
 console.log(demographicsPanel);
 
 // Select bar chart div.
 let barChart = d3.select("bar");
-console.log(selectID);
 
 // Select guage chart div. 
 let gaugeChart = d3.select("#guage");
@@ -24,22 +20,24 @@ let bubbleChart = d3.select("#bubble");
 // for the dropdown menu.
 function init() {
 
-    // reset any previous data
-    resetData();
+    // Select test subject input field
+    var selectID = d3.select("#selDataset");
 
     // read in samples from JSON file
-    d3.json("samples.json").then((result => {
+    d3.json("samples.json").then((result)=> {
+        console.log(result);
 
-            let selectID = d3.select("#selDataset");
-        
-            d3.json("samples.json").then((result)=> {
-                console.log(result);
-        
-                results.names.forEach(function(name) {
-                    selectID.append("option").text(name).property("value");
-                });
-            })
-        }));
+        // call back result to add as options for ul
+        result.names.forEach(function(name) {
+            selectID.append("option").text(name).property("value");
+            var input = document.getElementById("value");
+            var inputVal = "";
+                if (input) {
+                    inputVal = input.value;
+            }
+        });
+    })
+};
 
 /* Create a demographics panel that updates 
 based on the selected participant. It should 
@@ -47,13 +45,28 @@ generate on the changing value of subject ul listing selection.*/
 
 
 
-function resetData() {
+/*function resetData() {
+    // Select the demographics for participant listing div.
+    let demographicsPanel = d3.select("#sample-metadata");
+    console.log(demographicsPanel);
+
+    // Select bar chart div.
+    let barChart = d3.select("bar");
+    console.log(selectID);
+
+    // Select guage chart div. 
+    let gaugeChart = d3.select("#guage");
+
+    // Select bubble chart div.
+    let bubbleChart = d3.select("#bubble");
+
+    // clear data from html ids
     demographicsPanel.html("");
     barChart.html("");
     bubbleChart.html("");
     gaugeChart.html("");
 }
-
+*/
 init();
 
 /*function plotCharts(id) {
