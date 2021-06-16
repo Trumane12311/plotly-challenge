@@ -1,7 +1,8 @@
-function plots(sample) {
+function plots(subjectData) {
     d3.json("samples.json").then((data)=> {
-        let samples = data.samples;
-        let resultsdata = samples.filter(subject => subject.id == sample);
+        let subjects = data.samples;
+        console.log(subjects)
+        let resultsdata = subjects.filter(subject => subject.id == subjectData);
         console.log(resultsdata)
         let result = resultsdata[0];
         console.log(result);
