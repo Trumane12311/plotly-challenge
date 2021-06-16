@@ -32,7 +32,7 @@ function plots(subjectData) {
         };
     
         Plotly.newPlot("bar", barchart, barLayout);
-        })
+        });
         
 // Create a bubble chart that updates 
 // based on the selected participant.It should 
@@ -56,14 +56,14 @@ function plots(subjectData) {
           ];
         
         Plotly.newPlot("bubble", bubbleData, bubbleLayout);
-};
+}
         
 // Create a function for the demographics panel that updates based on the selected participant.
 
 function panelInfo() {
     d3.json("samples.json").then((data) => {
         let metadata = data.metadata;
-        console.log(metadata)
+        console.log(metadata);
         let resultsdata = metadata.filter(object => object.id == subject);
         console.log(resultsdata);
         let subject = resultsdata[0];
@@ -72,7 +72,9 @@ function panelInfo() {
         demographicPanel.html("");
         Object.entries(subject).forEach(([key, value]) => {   
                 demographicPanel.append("h5").text(`${key}: ${value}`);
-});
+        })
+    }
+)};   
 
 function init() {
     let selectID = d3.select("#selDataset");
@@ -83,7 +85,7 @@ function init() {
         }));
 
         // get the first ID from the list for initial charts as a default
-        const firstSample = sampleNames[0];
+        const firstSample = subjectNames[0];
         plots(firstSample);
         panelInfo(firstSample);
 
@@ -93,4 +95,6 @@ function init() {
 function updatePlots(newData) {
     plots(newData);
     panelInfo(newData);
-};
+}
+
+init();
