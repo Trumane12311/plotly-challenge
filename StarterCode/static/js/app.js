@@ -3,7 +3,7 @@ function plots(id) {
         console.log(data);
  
         let samples = data.samples.filter(s => s.id === id)[0];
-        console.log(`Samples: ${subSamples}`);
+        console.log(`Samples: ${samples}`);
 
         let topTen = samples.sample_values.slice(0, 10).reverse();
         console.log(`Top Ten Samples: ${topTen}`);
@@ -102,20 +102,45 @@ function updatePlots(id) {
     plots(id);
     jsonData(id);
 };
+
+// select the user input field
+var selectID = d3.select("#selDataset");
+
+// select the demographic info div's ul list group
+var demographicsTable = d3.select("#sample-metadata");
+
+// select the bar chart div
+var barChart = d3.select("#bar");
+
+// select the bubble chart div
+var bubbleChart = d3.select("bubble");
+
+// select the gauge chart div
+var gaugeChart = d3.select("gauge");
+
 function init() {
 
-    // Select test subject input field
-    let selectID = d3.select("selDataset");
-    console.log(selectID);
-    // read in samples from JSON file
-    d3.json("samples.json").then((result)=> {
-        console.log(result);
-        // call back result
-        result.names.forEach(function(name) {
-            selectID.enter().append('#dropdown-item').text(name).property('value');
-        });
-    });
-}
+    d3.json("samples.json").then((data => {
+
+        // ----------------------------------
+        // POPULATE DROPDOWN MENU WITH IDs 
+        // ----------------------------------
+
+        //  use a forEach to loop over each name in the array data.names to populate dropdowns with IDs
+        data.names.forEach((name => {
+            var option = selectID.append("option");
+            option.text(name);
+        })); // close forEach
+
+        // get the first ID from the list for initial charts as a default
+        var initId = selectID.property("value")
+
+        // plot charts with initial ID
+        plots(initId);
+
+    })); // close .then()
+
+} // close init() function
 
 init();
 

@@ -27,8 +27,10 @@
             <h5 class="card-title">Test Subject ID No.:</h5>
             <p>Use the dropdown to select a test subject.</p>
             <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1 selDataset" data-bs-toggle="dropdown" aria-expanded="false" onchange="optionChanged(this.value)">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
               </button>
+              <ul class="dropdown-menu" id="selDataset" onchange="optionChanged(this.value)"></ul>
+                <li a class="dropdown-item"></li>
             </div>
          </div>
          </div>
