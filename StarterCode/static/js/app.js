@@ -1,37 +1,9 @@
-function plots(id) {
-    d3.json("samples.json").then((data)=> {
-        console.log(data);
- 
-        var samples = data.samples.filter(s => s.id.toString() === id)[0];
-        console.log(`Samples: ${samples}`);
+//function plots(sample) {
+d3.json("samples.json").then((data)=> {
+    let samples = data.samples;
+    
+}
         
-        data.samples.forEach((sample => {
-            let topTen = samples.sample_values.slice(0, 10).reverse();
-            console.log(`Top Ten Samples: ${topTen}`);
-
-        let topOTU = samples.otu_ids.slice(0, 10).reverse();
-        console.log(`Top Ten OTUs: ${topOTU}`);
-
-            let OTUids = topOTU.map(d => "OTU " + d)
-        console.log(`OTU IDS: ${OTUids}`);
-
-        let OTUlabels = samples.otu_labels.slice(0, 10);
-        console.log(`Labels: ${OTUlabels}`);
-
-        let bX = samples.otu_ids;
-        console.log(bX);
-
-            let bY = samples.sample_values;
-        console.log(bY);
-
-            let bSize = samples.sample_values;
-        console.log(bSize);
-
-        let bColor = samples.otu_ids;
-        console.log(bColor);
-
-            let bText = samples.otu_labels;
-        console.log(bText);
 
         
 // Create a bar chart that updates 
@@ -123,20 +95,15 @@ let gaugeChart = d3.select("gauge");
 function init() {
 
     d3.json("samples.json").then((data => {
-        let subjectNames = data.names;
+        var subjectNames = data.names;
         subjectNames.forEach((name => {
-             selectID.classed("dropdown-item")
-                        .append('li')
-                        .text(name)
-                        .property("value", name)
+             selectID.append('li').text(name).property("value", name)
         })); // close forEach
 
         // get the first ID from the list for initial charts as a default
         const fillerData = sampleNames[0];
         buildCharts(fillerData);
         buildMetadata(fillerData);
-        // plot charts with initial ID
-        plots(initId);
 
     })); // close .then()
 
