@@ -1,41 +1,123 @@
-// Select the demographics for participant listing div.
-let demographicsPanel = d3.select("#sample-metadata");
-console.log(demographicsPanel);
+function plots(id) {
+    d3.json("samples.json").then((data)=> {
+        console.log(data);
+ 
+        let samples = data.samples.filter(s => s.id === id)[0];
+        console.log(`Samples: ${subSamples}`);
 
-// Select bar chart div.
-let barChart = d3.select("bar");
+        let topTen = samples.sample_values.slice(0, 10).reverse();
+        console.log(`Top Ten Samples: ${topTen}`);
 
-// Select guage chart div. 
-let gaugeChart = d3.select("#guage");
+        let topOTU = samples.otu_ids.slice(0, 10).reverse();
+        console.log(`Top Ten OTUs: ${topOTU}`);
 
-// Select bubble chart div.
-let bubbleChart = d3.select("#bubble");
+        let OTUids = topOTU.map(d => "OTU " + d)
+        console.log(`OTU IDS: ${OTUids}`);
 
-// Import JSON file to view data
-// let json = d3.json("samples.json").then(result => {
-//    console.log(result);
-// });
+        let OTUlabels = samples.otu_labels.slice(0, 10);
+        console.log(`Labels: ${OTUlabels}`);
 
-//  Import participant list into ul listing 
-// for the dropdown menu.
+        let bX = samples.otu_ids;
+        console.log(bX);
+
+        let bY = samples.sample_values;
+        console.log(bY);
+
+        let bSize = samples.sample_values;
+        console.log(bSize);
+
+        let bColor = samples.otu_ids;
+        console.log(bColor);
+
+        let bText = samples.otu_labels;
+        console.log(bText);
+
+        
+// Create a bar chart that updates 
+// based on the selected participant.It should 
+// generate on the changing value of subject ul listing selection.
+        let traceBar = {
+            x: topTen,
+            y: OTUids,
+            text: OTUlabels,
+            type:"bar",
+            orientation: "h",
+        };
+
+        let dataBar = [traceBar];
+
+        let layoutBar = {
+            title: "Top 10 Bacteria Cultures Found",
+            yaxis:{
+                tickmode:"linear",
+            }
+        };
+
+        Plotly.newPlot("bar", dataBar, layoutBar);
+        
+        //Bubble chart 
+        let traceBubble = {
+            x: bX,
+            y: bY,
+            mode: "markers",
+            marker: {
+                size: bSize,
+                color: bColor
+            },
+            text:bText
+        };
+
+        let layoutBubble = {
+            title: "Bacteria Cultures Per Sample",
+            xaxis:{title: "OTU ID"},
+        };
+
+        let dataBubble = [traceBubble];
+
+        Plotly.newPlot("bubble", dataBubble, layoutBubble); 
+
+    });    
+}
+
+/* Create a function for the demographics panel that updates 
+based on the selected participant. It should 
+generate on the changing value of subject ul listing selection.*/
+function jsonData(id) {
+    d3.json("samples.json").then((data) => {
+        let metadata = data.metadata;
+        console.log(metadata)
+
+        let result = metadata.filter(meta => meta.id.toString() === id)[0];
+
+        let demographicPanel = d3.select("#sample-metadata");
+        demographicPanel.html("");
+
+        Object.entries(result).forEach((key) => {   
+                demographicPanel.append("h5").text(key[0].toUpperCase() + ": " + key[1] + "\n");    
+        });
+    });
+}
+
+function updatePlots(id) {
+    plots(id);
+    jsonData(id);
+};
 function init() {
 
     // Select test subject input field
-    let selectID = d3.select("#selDataset");
-
+    let selectID = d3.select("selDataset");
+    console.log(selectID);
     // read in samples from JSON file
     d3.json("samples.json").then((result)=> {
         console.log(result);
         // call back result
         result.names.forEach(function(name) {
-            selectID.append('option').text(name).property('value');
-        })
-    })
+            selectID.enter().append('#dropdown-item').text(name).property('value');
+        });
+    });
 }
 
-/* Create a demographics panel that updates 
-based on the selected participant. It should 
-generate on the changing value of subject ul listing selection.*/
+init();
 
 
 
@@ -61,7 +143,6 @@ generate on the changing value of subject ul listing selection.*/
     gaugeChart.html("");
 }
 */
-init();
 
 /*function plotCharts(id) {
 
@@ -90,9 +171,7 @@ init();
 //console.log(individualSubject);
 
 
-/* Create a bar chart that updates 
-based on the selected participant.It should 
-generate on the changing value of subject ul listing selection.*/
+
 
 
 
