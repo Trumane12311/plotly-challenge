@@ -6,6 +6,12 @@ function plots(subjectData) {
         console.log(resultsdata)
         let result = resultsdata[0];
         console.log(result);
+        let ids = result.otu_ids;
+        console.log(ids)
+        let labels = result.otu_labels;
+        console.log(labels)
+        let values = result.sample_values;
+        console.log(values)
 });
 }
         
