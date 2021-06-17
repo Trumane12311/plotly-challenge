@@ -37,7 +37,7 @@ function plots(subjectData) {
 // generate on the changing value of subject ul listing selection.
         let bubbleLayout = {
             margin: { t: 0 },
-            xaxis: { title: "OTU ID" },
+            xaxis: { title: "Presence of Bacteria by OTU ID" },
             hovermode: "closest",
         };
         
@@ -68,32 +68,30 @@ function panelInfo(subjectData) {
         let demographicPanel = d3.select("#sample-metadata");
         demographicPanel.html("");
         Object.entries(subject).forEach(([key, value]) => {   
-                demographicPanel.append("p").text(`${key}: ${value}`);
+            demographicPanel.append("p").text(`${key}: ${value}`);
         })
     }
-)};   
-
-function updatePlots(newData) {
-    plots(newData);
-    panelInfo(newData);
-}
-
+)}   
+// Create the initiation function
 function init() {
     let selectID = d3.select("#selDataset");
-    d3.json("samples.json").then((data => {
-        var subjectNames = data.names;
-        subjectNames.forEach((subject => {
+    d3.json("samples.json").then((data) => {
+        let subjectNames = data.names;
+        subjectNames.forEach((subject) => {
              selectID.append('option').text(subject).property("value", subject);
-        }));
-
+        });
         // get the first ID from the list for initial charts as a default
         const firstSample = subjectNames[0];
         plots(firstSample);
         panelInfo(firstSample);
-
-    }));
+    });
 }
 
+// Create function to update plots and demographics panel
+function updatePlots(newSample) {
+    plots(newSample);
+    panelInfo(newSample);
+}
 
-
+// Initiate the functions
 init();
