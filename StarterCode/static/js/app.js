@@ -2,15 +2,13 @@ function plots(subjectData) {
     d3.json("samples.json").then((data)=> {
         let subjects = data.samples;
         console.log(subjects);
-        let resultsdata = subjects.filter(subject => subject.id == subjectData);
+        let resultsdata = subjects.filter(subject => subject.id == subjectData)[0];
         console.log(resultsdata);
-        let result = resultsdata[0];
-        console.log(result);
-        let ids = result.otu_ids;
+        let ids = resultsdata.otu_ids;
         console.log(ids);
-        let labels = result.otu_labels;
+        let labels = resultsdata.otu_labels;
         console.log(labels);
-        let values = result.sample_values;
+        let values = resultsdata.sample_values;
         console.log(values);
         
 // Create a bar chart that updates 
@@ -32,7 +30,7 @@ function plots(subjectData) {
         };
     
         Plotly.newPlot("bar", barchart, barLayout);
-        })
+
         
 // Create a bubble chart that updates 
 // based on the selected participant.It should 
@@ -41,7 +39,7 @@ function plots(subjectData) {
             margin: { t: 0 },
             xaxis: { title: "OTU ID" },
             hovermode: "closest",
-            };
+        };
         
         let bubbleData = [{
             x: ids,
@@ -49,14 +47,13 @@ function plots(subjectData) {
             text: labels,
             mode: "markers",
             marker: {
-            color: ids,
-            size: values
+                color: ids,
+                size: values
             }
-            }
-          ];
-        
+        }];
         Plotly.newPlot("bubble", bubbleData, bubbleLayout);
-};
+    })
+}
         
 // Create a function for the demographics panel that updates based on the selected participant.
 
@@ -71,7 +68,7 @@ function panelInfo(subjectData) {
         let demographicPanel = d3.select("#sample-metadata");
         demographicPanel.html("");
         Object.entries(subject).forEach(([key, value]) => {   
-                demographicPanel.append("h5").text(`${key}: ${value}`);
+                demographicPanel.append("p").text(`${key}: ${value}`);
         })
     }
 )};   
@@ -86,11 +83,11 @@ function init() {
     d3.json("samples.json").then((data => {
         var subjectNames = data.names;
         subjectNames.forEach((subject => {
-             selectID.append('li').text(subject).property("value", subject);
+             selectID.append('option').text(subject).property("value", subject);
         }));
 
         // get the first ID from the list for initial charts as a default
-        let firstSample = subjectNames[0];
+        const firstSample = subjectNames[0];
         plots(firstSample);
         panelInfo(firstSample);
 
