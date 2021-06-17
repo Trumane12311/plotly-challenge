@@ -50,7 +50,7 @@ function plots(subjectData) {
             mode: "markers",
             marker: {
             color: ids,
-            size: values,
+            size: values
             }
             }
           ];
@@ -60,11 +60,11 @@ function plots(subjectData) {
         
 // Create a function for the demographics panel that updates based on the selected participant.
 
-function panelInfo() {
+function panelInfo(subjectData) {
     d3.json("samples.json").then((data) => {
         let metadata = data.metadata;
         console.log(metadata);
-        let resultsdata = metadata.filter(object => object.id == subject);
+        let resultsdata = metadata.filter(object => object.id == subjectData);
         console.log(resultsdata);
         let subject = resultsdata[0];
         console.log(subject);
@@ -76,6 +76,11 @@ function panelInfo() {
     }
 )};   
 
+function updatePlots(newData) {
+    plots(newData);
+    panelInfo(newData);
+}
+
 function init() {
     let selectID = d3.select("#selDataset");
     d3.json("samples.json").then((data => {
@@ -85,16 +90,13 @@ function init() {
         }));
 
         // get the first ID from the list for initial charts as a default
-        const firstSample = subjectNames[0];
+        let firstSample = subjectNames[0];
         plots(firstSample);
         panelInfo(firstSample);
 
     }));
 }
 
-function updatePlots(newData) {
-    plots(newData);
-    panelInfo(newData);
-}
+
 
 init();
