@@ -79,7 +79,7 @@ function panelInfo(subjectData) {
               mode: "gauge",
               value: wfreq,
               title: { text: "Frequency of Belly Button Washing", font: { size: 24 },
-              title: { text: "Scrubs per Week", font: { size: 18, color: "gray" },
+              title: { text: "Scrubs per Week", font: { size: 18 }, font: { color: "gray" },
               gauge: {
                 axis: { range: [null, 9], tickwidth: 1, tickcolor: "black", tickmode: "linear" },
                 bar: { color: "rbga(0, 128, 0, .9" },
