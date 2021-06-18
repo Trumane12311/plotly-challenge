@@ -71,27 +71,28 @@ function panelInfo(subjectData) {
         Object.entries(subject).forEach(([key, value]) => {   
             demographicPanel.append("p").text(`${key}: ${value}`);
         })
-// Plot Gauge
+// Create the Gauge Plot
         let gauge = [
             {
             domain: {x: [0,1], y:[0,1]},
               type: "indicator",
               mode: "gauge",
               value: wfreq,
-              title: { text: "Frequency of Washing", font: { size: 24 } },
+              title: { text: "Frequency of Belly Button Washing", font: { size: 24 },
+              title: { text: "Scrubs per Week", font: { size: 18, color: "gray" },
               gauge: {
                 axis: { range: [null, 9], tickwidth: 1, tickcolor: "black", tickmode: "linear" },
                 bar: { color: "rbga(0, 128, 0, .9" },
                 steps: [
-                  { range: [0, 1], color: "rgba(0,130,130,.05)" },
-                  { range: [1, 2], color: "rgba(0,130,130,.1)" },
-                  { range: [2, 3], color: "rgba(0,130,130,.2)" },
-                  { range: [3, 4], color: "rgba(0,130,130,.3)"},
-                  { range: [4, 5], color: "rgba(0,130,130,.4)" },
-                  { range: [5, 6], color: "rgba(0,130,130,.5)" },
-                  { range: [6, 7], color: "rgba(0,130,130,.6)" },
-                  { range: [7, 8], color: "rgba(0,130,130,.7)" },
-                  { range: [8, 9], color: "rgba(0,130,130,.8)" }
+                  { range: [0, 1], color: "rgba(213, 147, 15,.05)" },
+                  { range: [1, 2], color: "rgba(213, 147, 15,.1)" },
+                  { range: [2, 3], color: "rgba(213, 147, 15,.2)" },
+                  { range: [3, 4], color: "rgba(213, 147, 15,.3)"},
+                  { range: [4, 5], color: "rgba(213, 147, 15,.4)" },
+                  { range: [5, 6], color: "rgba(213, 147, 15,.5)" },
+                  { range: [6, 7], color: "rgba(213, 147, 15,.6)" },
+                  { range: [7, 8], color: "rgba(213, 147, 15,.7)" },
+                  { range: [8, 9], color: "rgba(213, 147, 15,.8)" }
                 ],
                 threshold: {
                   line: { color: "red", width: 4 },
