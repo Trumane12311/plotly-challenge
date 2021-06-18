@@ -62,28 +62,26 @@ function panelInfo(subjectData) {
         let metadata = data.metadata;
         console.log(metadata);
         let resultsdata = metadata.filter(object => object.id == subjectData);
-        let wfreq = resultsdata.wfreq;
         console.log(resultsdata);
         let subject = resultsdata[0];
+        let wfreq = subject.wfreq
         console.log(subject);
         let demographicPanel = d3.select("#sample-metadata");
         demographicPanel.html("");
         Object.entries(subject).forEach(([key, value]) => {   
             demographicPanel.append("p").text(`${key}: ${value}`);
         })
-        let data = [
+// Plot Gauge
+        let gauge = [
             {
             domain: {x: [0,1], y:[0,1]},
               type: "indicator",
               mode: "gauge",
-              value: parseFloat(wfreq) * 20,
+              value: wfreq,
               title: { text: "Frequency of Washing", font: { size: 24 } },
               gauge: {
-                axis: { range: [null, 9], tickwidth: 1, tickcolor: "black" },
-                bar: { color: "darkgreen" },
-                bgcolor: "white",
-                borderwidth: 2,
-                bordercolor: "gray",
+                axis: { range: [null, 9], tickwidth: 1, tickcolor: "black", tickmode: "linear" },
+                bar: { color: "rbga(0, 128, 0, .9" },
                 steps: [
                   { range: [0, 1], color: "rgba(0,130,130,.05)" },
                   { range: [1, 2], color: "rgba(0,130,130,.1)" },
@@ -108,11 +106,11 @@ function panelInfo(subjectData) {
             width: 500,
             height: 400,
             margin: { t: 25, r: 25, l: 25, b: 25 },
-            paper_bgcolor: "lavender",
-            font: { color: "darkblue", family: "Arial" }
+            paper_bgcolor: "white",
+            font: { color: "black", family: "Arial" }
           };
           
-          Plotly.newPlot('guage', data, layout);
+          Plotly.newPlot('gauge', gauge, layout);
     }
 )}   
 // Create the initiation function
